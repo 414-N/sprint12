@@ -1,15 +1,14 @@
+
 FROM golang:1.22
 
-WORKDIR /sprint12
+WORKDIR /app
 
-COPY go.mod go.sum ./
+COPY go.mod go.sum tracker.db ./
 
 RUN go mod download
 
 COPY *.go ./
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /my_app -gcflags "all=-N -l"
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /todo_app
 
-COPY tracker.db ./
-
-CMD ["/my_app"]
+CMD ["/todo_app"]
